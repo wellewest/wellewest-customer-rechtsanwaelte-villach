@@ -1,0 +1,94 @@
+---
+import { company, practiceAreas } from '../lib/content'
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <h3 class="footer-title">{company.shortName}</h3>
+      <p class="footer-text">
+        {company.partnerName}<br />
+        {company.street}<br />
+        {company.zip} {company.city}
+      </p>
+      <p class="footer-text">
+        Tel. <a href={`tel:${company.phoneIntl}`}>{company.phone}</a><br />
+        <a href={`mailto:${company.email}`}>{company.email}</a>
+      </p>
+    </div>
+
+    <div>
+      <h3 class="footer-title">Leistungen</h3>
+      <ul class="footer-links">
+        {practiceAreas.map((p) => (
+          <li><a href={`/${p.slug}`}>{p.title}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div>
+      <h3 class="footer-title">Service</h3>
+      <ul class="footer-links">
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/anfahrt">Anfahrt</a></li>
+        <li><a href="/impressum">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-meta">
+    <div class="container">
+      <span>{company.copyright}</span>
+      <span class="footer-meta__demo">Demo-Site auf WelleWest CMS · vom Original übernommen</span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bg-dark);
+    color: #cfd6e2;
+    padding: 4rem 0 0;
+    margin-top: 4rem;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  @media (max-width: 768px) {
+    .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .footer-title {
+    font-family: var(--font-serif);
+    font-size: 1.15rem;
+    color: #fff;
+    margin: 0 0 1rem;
+  }
+  .footer-text { color: #9da9bd; font-size: 0.92rem; line-height: 1.7; }
+  .footer-text a { color: var(--color-accent); }
+  .footer-links { list-style: none; padding: 0; margin: 0; }
+  .footer-links li { margin: 0.4rem 0; }
+  .footer-links a {
+    color: #9da9bd;
+    font-size: 0.92rem;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .footer-links a:hover { color: var(--color-accent); }
+
+  .footer-meta {
+    padding: 1.5rem 0;
+    font-size: 0.8rem;
+    color: #6a7990;
+  }
+  .footer-meta .container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .footer-meta__demo { color: var(--color-accent); font-style: italic; }
+</style>

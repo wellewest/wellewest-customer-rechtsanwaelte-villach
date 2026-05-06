@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { practiceAreas, motto, company } from '../lib/content'
+
+export function getStaticPaths() {
+  return practiceAreas.map((area) => ({
+    params: { slug: area.slug },
+    props: { area },
+  }))
+}
+
+const { area } = Astro.props
+---
+
+<BaseLayout title={area.title} description={area.metaDescription}>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Rechtsgebiet</p>
+      <h1>{area.title}</h1>
+      <p class="page-hero__sub">{area.short}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-narrow">
+      <h2 class="content-heading">{area.hero}</h2>
+      <span class="ornament" />
+      {area.body.map((p) => <p class="content-p">{p}</p>)}
+      <p class="closing-line">{area.closing}</p>
+
+      <div class="cta-row">
+        <a href="/kontakt" class="btn">Jetzt Kontakt aufnehmen</a>
+        <a href="/" class="btn btn--ghost">Alle Rechtsgebiete</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container container-narrow motto-mini">
+      <p class="motto__pre">{motto.pre}</p>
+      <h3 class="motto__main">{motto.main}</h3>
+      <p>{motto.text}</p>
+    </div>
+  </section>
+
+  <section class="section other-areas">
+    <div class="container">
+      <p class="eyebrow">Weitere Rechtsgebiete</p>
+      <h3>Auch interessant für Sie</h3>
+      <div class="other-grid">
+        {practiceAreas.filter((p) => p.slug !== area.slug).slice(0, 4).map((p) => (
+          <a href={`/${p.slug}`} class="other-card">
+            <h4>{p.title}</h4>
+            <p>{p.short}</p>
+            <span class="more">Mehr erfahren →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    color: #fff;
+    padding: 6rem 0 4.5rem;
+  }
+  .page-hero .eyebrow { color: var(--color-accent); }
+  .page-hero h1 {
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+  .page-hero__sub {
+    font-size: 1.2rem;
+    color: #b8c5db;
+    max-width: 640px;
+  }
+
+  .content-heading {
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin: 0;
+  }
+  .content-p {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: #2a2a2a;
+    margin-bottom: 1.4rem;
+  }
+  .closing-line {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    border-left: 3px solid var(--color-accent);
+    padding-left: 1.25rem;
+    margin: 2.5rem 0 2rem;
+  }
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+  }
+
+  .motto-mini { text-align: center; }
+  .motto-mini h3 { color: var(--color-primary); font-size: clamp(1.5rem, 2.5vw, 2rem); }
+
+  .other-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .other-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-divider);
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+  }
+  .other-card:hover {
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+  .other-card h4 {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    margin: 0 0 0.5rem;
+    color: var(--color-primary);
+  }
+  .other-card p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    margin: 0 0 0.75rem;
+    line-height: 1.55;
+  }
+  .other-card .more {
+    color: var(--color-accent);
+    font-size: 0.78rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+</style>

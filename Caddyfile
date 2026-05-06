@@ -1,0 +1,17 @@
+:80 {
+	root * /srv
+	encode gzip zstd
+
+	basicauth {
+		demo $2a$14$Bi7YpCF9kR9.Pte7tE1tkuegXZQH.cCZDbwW7i/Ziba.AzOJcbXUK
+	}
+
+	header {
+		X-Robots-Tag "noindex, nofollow, noarchive"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+	}
+
+	try_files {path} {path}/index.html /404.html
+	file_server
+}

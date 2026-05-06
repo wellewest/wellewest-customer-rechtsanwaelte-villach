@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { company } from '../lib/content'
+
+const mapEmbedUrl = `https://www.openstreetmap.org/export/embed.html?bbox=13.8455%2C46.6075%2C13.8555%2C46.6135&layer=mapnik&marker=46.6105%2C13.8505`
+---
+
+<BaseLayout title="Anfahrt" description={`Anfahrt zur Kanzlei Reif und Partner — ${company.street}, ${company.zip} ${company.city}`}>
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Anfahrt</p>
+      <h1>So finden Sie zu uns</h1>
+      <p class="page-hero__sub">Kanzlei Villach · Im Zentrum, gut zu erreichen.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container anfahrt-grid">
+      <div class="anfahrt-info">
+        <h2>Adresse &amp; Erreichbarkeit</h2>
+        <span class="ornament" />
+        <p class="big">
+          <strong>{company.shortName}</strong><br />
+          {company.partnerName}<br />
+          {company.street}<br />
+          {company.zip} {company.city}
+        </p>
+        <p>
+          Tel. <a href={`tel:${company.phoneIntl}`}>{company.phone}</a><br />
+          <a href={`mailto:${company.email}`}>{company.email}</a>
+        </p>
+        <h3>Anfahrt</h3>
+        <p>
+          Mit dem Auto erreichen Sie uns über die A2 Südautobahn (Abfahrt Villach). Die Peraustraße liegt zentral, parken können Sie in der Tiefgarage Hauptplatz oder am Hans-Gasser-Platz.
+        </p>
+        <p>
+          Mit dem Zug: Hauptbahnhof Villach, von dort 5 Minuten Fußweg.
+        </p>
+        <a href="/kontakt" class="btn">Termin vereinbaren</a>
+      </div>
+
+      <div class="anfahrt-map">
+        <iframe
+          src={mapEmbedUrl}
+          loading="lazy"
+          title="Karte der Kanzlei Villach"
+          width="100%"
+          height="500"
+          style="border: 0;"
+        ></iframe>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    color: #fff;
+    padding: 6rem 0 4.5rem;
+  }
+  .page-hero .eyebrow { color: var(--color-accent); }
+  .page-hero h1 { color: #fff; margin-bottom: 1rem; }
+  .page-hero__sub { font-size: 1.2rem; color: #b8c5db; }
+
+  .anfahrt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 900px) {
+    .anfahrt-grid { grid-template-columns: 1fr; }
+  }
+
+  .anfahrt-info .big {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .anfahrt-info h3 {
+    margin-top: 2rem;
+  }
+  .anfahrt-info .btn { margin-top: 1.5rem; }
+
+  .anfahrt-map iframe {
+    border: 1px solid var(--color-divider);
+    box-shadow: 0 4px 16px rgba(14,31,61,0.06);
+  }
+</style>

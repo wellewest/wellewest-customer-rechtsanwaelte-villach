@@ -1,0 +1,231 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
+---
+
+<BaseLayout title="Ihr Rechtsanwalt in Villach" description="Wir kümmern uns um Ihr Recht. Reif und Partner Rechtsanwälte — Mag. Herbert Steinwandter und Team in Villach.">
+
+  <section class="hero">
+    <div class="container hero__inner">
+      <p class="eyebrow">Reif und Partner Rechtsanwälte · Villach</p>
+      <h1 class="hero__title">Wir kümmern uns um Ihr Recht</h1>
+      <p class="hero__sub">Ihr Rechtsanwalt in Villach — seit über 20 Jahren an Ihrer Seite</p>
+      <div class="hero__cta">
+        <a href="/kontakt" class="btn">Jetzt Kontakt aufnehmen</a>
+        <a href="#leistungen" class="btn btn--ghost">Unsere Leistungen</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="motto-section">
+    <div class="container container-narrow motto">
+      <p class="motto__pre">{motto.pre}</p>
+      <h2 class="motto__main">{motto.main}</h2>
+      <p class="motto__text">{motto.text}</p>
+      <p class="motto__closing"><strong>{motto.closing}</strong></p>
+    </div>
+  </section>
+
+  <section class="section section--alt" id="leistungen">
+    <div class="container">
+      <p class="eyebrow">Unsere Leistungen</p>
+      <h2 class="section-title">Rechtsgebiete im Überblick</h2>
+      <span class="ornament" />
+      <p class="section-intro">Wir vertreten Sie in allen Lebensbereichen — privat und unternehmerisch. Wählen Sie Ihr Anliegen.</p>
+
+      <div class="service-grid">
+        {practiceAreas.map((area) => (
+          <a href={`/${area.slug}`} class="service-card">
+            <h3 class="service-card__title">{area.title}</h3>
+            <p class="service-card__text">{area.short}</p>
+            <span class="service-card__more">Mehr erfahren →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section about">
+    <div class="container about__inner">
+      <div class="about__text">
+        <p class="eyebrow">Über uns</p>
+        <h2>Mag. Herbert Steinwandter</h2>
+        <span class="ornament" />
+        <p class="lead">{aboutHerbert.intro}</p>
+        {aboutHerbert.paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <aside class="about__sidebar">
+        <div class="contact-card">
+          <h3>Sprechen Sie mit uns</h3>
+          <p class="contact-card__addr">
+            {company.partnerName}<br />
+            {company.shortName}<br />
+            {company.street}<br />
+            {company.zip} {company.city}
+          </p>
+          <p class="contact-card__phone">
+            Tel. <a href={`tel:${company.phoneIntl}`}>{company.phone}</a>
+          </p>
+          <p class="contact-card__email">
+            <a href={`mailto:${company.email}`}>{company.email}</a>
+          </p>
+          <a href="/kontakt" class="btn">Termin vereinbaren</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    color: #fff;
+    padding: 8rem 0 7rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at top right, rgba(176, 136, 56, 0.15), transparent 60%),
+      radial-gradient(ellipse at bottom left, rgba(255,255,255,0.04), transparent 60%);
+    pointer-events: none;
+  }
+  .hero__inner { position: relative; max-width: 900px; }
+  .hero .eyebrow { color: var(--color-accent); }
+  .hero__title {
+    color: #fff;
+    font-size: clamp(2.75rem, 6vw, 5rem);
+    margin-bottom: 1rem;
+    line-height: 1.05;
+  }
+  .hero__sub {
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
+    color: #b8c5db;
+    margin-bottom: 2.5rem;
+    max-width: 640px;
+  }
+  .hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .hero .btn--ghost { color: #fff; border-color: #fff; }
+  .hero .btn--ghost:hover { background: #fff; color: var(--color-primary); }
+
+  .motto-section {
+    padding: 5rem 0;
+    text-align: center;
+  }
+  .motto__pre {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
+  }
+  .motto__main {
+    font-size: clamp(2rem, 3.5vw, 2.75rem);
+    margin-bottom: 1.5rem;
+    color: var(--color-primary);
+  }
+  .motto__text { font-size: 1.1rem; color: var(--color-text-muted); }
+  .motto__closing { color: var(--color-primary); font-size: 1.2rem; margin-top: 1.5rem; }
+
+  .section-title { margin: 0; }
+  .section-intro {
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    max-width: 640px;
+    margin: 0 0 3rem;
+  }
+
+  .service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.25rem;
+  }
+  .service-card {
+    background: var(--color-card);
+    border: 1px solid var(--color-divider);
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: all 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 0;
+    height: 3px;
+    background: var(--color-accent);
+    transition: width 0.25s ease;
+  }
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px var(--color-card-shadow);
+  }
+  .service-card:hover::before { width: 100%; }
+  .service-card__title {
+    font-family: var(--font-serif);
+    font-size: 1.4rem;
+    color: var(--color-primary);
+    margin: 0;
+  }
+  .service-card__text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.55;
+    flex: 1;
+    margin: 0;
+  }
+  .service-card__more {
+    color: var(--color-accent);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-top: 0.75rem;
+  }
+
+  .about__inner {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+  }
+  @media (max-width: 900px) {
+    .about__inner { grid-template-columns: 1fr; }
+  }
+  .lead {
+    font-size: 1.18rem;
+    color: var(--color-primary);
+    line-height: 1.6;
+  }
+
+  .contact-card {
+    background: var(--color-bg-alt);
+    padding: 2.5rem 2rem;
+    border-left: 3px solid var(--color-accent);
+  }
+  .contact-card h3 {
+    font-size: 1.5rem;
+    margin: 0 0 1rem;
+  }
+  .contact-card__addr {
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+  .contact-card__phone, .contact-card__email {
+    color: var(--color-text-muted);
+    margin: 0.5rem 0;
+  }
+  .contact-card .btn { margin-top: 1.25rem; }
+</style>

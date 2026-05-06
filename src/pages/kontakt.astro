@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import { company } from '../lib/content'
+---
+
+<BaseLayout title="Kontakt" description="Kontakt zu Reif und Partner Rechtsanwälte in Villach. Mag. Herbert Steinwandter — wir freuen uns, Ihnen helfen zu dürfen.">
+
+  <section class="page-hero">
+    <div class="container">
+      <p class="eyebrow">Kontakt</p>
+      <h1>Sprechen Sie mit uns</h1>
+      <p class="page-hero__sub">Wir freuen uns, Ihnen helfen zu dürfen.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container kontakt-grid">
+      <div class="kontakt-form">
+        <h2>Jetzt Kontakt aufnehmen</h2>
+        <span class="ornament" />
+        <form>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="vorname">Vorname *</label>
+              <input id="vorname" name="vorname" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="nachname">Nachname *</label>
+              <input id="nachname" name="nachname" type="text" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="email">E-Mail *</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+            <div class="form-field">
+              <label for="telefon">Telefon *</label>
+              <input id="telefon" name="telefon" type="tel" required />
+            </div>
+          </div>
+          <div class="form-field">
+            <label for="nachricht">Ihre Nachricht *</label>
+            <textarea id="nachricht" name="nachricht" required></textarea>
+          </div>
+          <button type="submit" class="btn">Absenden</button>
+          <p class="form-note">
+            Mit dem Absenden erklären Sie sich einverstanden, dass Ihre Angaben für die Beantwortung Ihrer Anfrage gespeichert werden.
+            Details siehe Datenschutzerklärung.
+          </p>
+        </form>
+      </div>
+
+      <aside class="kontakt-info">
+        <h3>Kanzlei Villach</h3>
+        <span class="ornament" />
+        <p>
+          {company.partnerName}<br />
+          {company.shortName}<br />
+          {company.street}<br />
+          {company.zip} {company.city}
+        </p>
+        <p>
+          Tel. <a href={`tel:${company.phoneIntl}`}>{company.phone}</a><br />
+          <a href={`mailto:${company.email}`}>{company.email}</a>
+        </p>
+        <p>
+          <a href="/anfahrt" class="link-arrow">→ Anfahrt &amp; Karte</a>
+        </p>
+      </aside>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .page-hero {
+    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    color: #fff;
+    padding: 6rem 0 4.5rem;
+  }
+  .page-hero .eyebrow { color: var(--color-accent); }
+  .page-hero h1 { color: #fff; margin-bottom: 1rem; }
+  .page-hero__sub {
+    font-size: 1.2rem;
+    color: #b8c5db;
+  }
+
+  .kontakt-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+  }
+  @media (max-width: 900px) {
+    .kontakt-grid { grid-template-columns: 1fr; }
+  }
+
+  .form-note {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  .kontakt-info {
+    background: var(--color-bg-alt);
+    padding: 2.5rem 2rem;
+    border-left: 3px solid var(--color-accent);
+  }
+  .kontakt-info h3 {
+    margin: 0 0 0.5rem;
+  }
+  .kontakt-info p {
+    color: var(--color-text);
+    line-height: 1.7;
+  }
+  .link-arrow {
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+</style>

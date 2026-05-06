@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+<BaseLayout title="Seite nicht gefunden">
+  <section class="section">
+    <div class="container container-narrow not-found">
+      <p class="eyebrow">Fehler 404</p>
+      <h1>Diese Seite gibt es nicht.</h1>
+      <p>Die gewünschte Seite konnte nicht gefunden werden. Vielleicht eines der folgenden:</p>
+      <p>
+        <a href="/" class="btn">Zur Startseite</a>
+        <a href="/kontakt" class="btn btn--ghost">Kontakt</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+<style>
+  .not-found { text-align: center; padding: 4rem 0; }
+  .not-found h1 { margin: 1rem 0; }
+  .not-found .btn { margin: 0 0.25rem; }
+</style>
