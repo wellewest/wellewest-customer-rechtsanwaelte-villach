@@ -17,7 +17,6 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(href
 
     <nav class="nav-desktop" aria-label="Hauptnavigation">
       <ul>
-        <li><a href="/" class:list={[{ active: pathname === '/' }]}>Startseite</a></li>
         <li class="has-submenu">
           <a href="#leistungen" aria-haspopup="true">Leistungen <span aria-hidden="true">▾</span></a>
           <div class="submenu">

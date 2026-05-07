@@ -12,6 +12,17 @@
 		Referrer-Policy strict-origin-when-cross-origin
 	}
 
+	# HTML nicht aggressiv cachen — sonst sieht der Browser alte Versionen
+	@html {
+		path *.html
+		path /
+	}
+	header @html Cache-Control "public, max-age=0, must-revalidate"
+
+	# Statische Assets: 30 Tage cachen
+	@static path *.jpg *.jpeg *.png *.webp *.avif *.svg *.woff2 *.woff *.css *.js *.ico
+	header @static Cache-Control "public, max-age=2592000, immutable"
+
 	try_files {path} {path}/index.html /404.html
 	file_server
 }
