@@ -17,9 +17,9 @@ import { company, practiceAreas } from '../lib/content'
       </p>
     </div>
 
-    <div>
+    <div class="footer-services">
       <h3 class="footer-title">Leistungen</h3>
-      <ul class="footer-links">
+      <ul class="footer-links footer-links--two-col">
         {practiceAreas.map((p) => (
           <li><a href={`/${p.slug}`}>{p.title}</a></li>
         ))}
@@ -53,13 +53,25 @@ import { company, practiceAreas } from '../lib/content'
   }
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-columns: 1.1fr 1.6fr 0.9fr;
     gap: 3rem;
     padding-bottom: 3rem;
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+    .footer-services { grid-column: 1 / -1; }
+  }
+  @media (max-width: 600px) {
     .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  }
+  .footer-links--two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+  }
+  @media (max-width: 480px) {
+    .footer-links--two-col { grid-template-columns: 1fr; }
   }
   .footer-title {
     font-family: var(--font-serif);
