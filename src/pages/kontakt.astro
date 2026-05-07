@@ -22,38 +22,98 @@ import { company } from '../lib/content'
       <div class="kontakt-form">
         <h2>Jetzt Kontakt aufnehmen</h2>
         <span class="ornament" />
-        <form>
+        <form
+          id="contact-form"
+          data-endpoint="https://n8n.wellewest.at/webhook/form"
+          data-tenant="rechtsanwaelte-villach"
+        >
           <div class="form-row">
             <div class="form-field">
               <label for="vorname">Vorname *</label>
-              <input id="vorname" name="vorname" type="text" required />
+              <input id="vorname" name="vorname" type="text" required autocomplete="given-name" />
             </div>
             <div class="form-field">
               <label for="nachname">Nachname *</label>
-              <input id="nachname" name="nachname" type="text" required />
+              <input id="nachname" name="nachname" type="text" required autocomplete="family-name" />
             </div>
           </div>
           <div class="form-row">
             <div class="form-field">
               <label for="email">E-Mail *</label>
-              <input id="email" name="email" type="email" required />
+              <input id="email" name="email" type="email" required autocomplete="email" />
             </div>
             <div class="form-field">
               <label for="telefon">Telefon *</label>
-              <input id="telefon" name="telefon" type="tel" required />
+              <input id="telefon" name="telefon" type="tel" required autocomplete="tel" />
             </div>
           </div>
           <div class="form-field">
             <label for="nachricht">Ihre Nachricht *</label>
             <textarea id="nachricht" name="nachricht" required></textarea>
           </div>
-          <button type="submit" class="btn">Absenden</button>
+          <!-- Honeypot: Bots füllen das aus, Menschen sehen es nicht -->
+          <div class="hp" aria-hidden="true">
+            <label for="website">Website (bitte leer lassen)</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <button type="submit" class="btn" data-submit>Absenden</button>
+          <p class="form-status" data-status role="status" aria-live="polite"></p>
           <p class="form-note">
             Mit dem Absenden erklären Sie sich einverstanden, dass Ihre Angaben für die Beantwortung Ihrer Anfrage gespeichert werden.
             Details siehe Datenschutzerklärung.
           </p>
         </form>
       </div>
+
+      <script>
+        const form = document.getElementById('contact-form') as HTMLFormElement | null
+        if (form) {
+          const endpoint = form.dataset.endpoint as string
+          const tenant = form.dataset.tenant as string
+          const btn = form.querySelector('[data-submit]') as HTMLButtonElement
+          const status = form.querySelector('[data-status]') as HTMLParagraphElement
+          const setStatus = (msg: string, kind: 'ok' | 'err' | '' = '') => {
+            status.textContent = msg
+            status.dataset.kind = kind
+          }
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault()
+            const fd = new FormData(form)
+            const payload = {
+              tenant,
+              vorname: fd.get('vorname'),
+              nachname: fd.get('nachname'),
+              email: fd.get('email'),
+              telefon: fd.get('telefon'),
+              nachricht: fd.get('nachricht'),
+              website: fd.get('website'),
+            }
+            btn.disabled = true
+            const oldLabel = btn.textContent
+            btn.textContent = 'Wird gesendet …'
+            setStatus('')
+            try {
+              const res = await fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+              })
+              const data = await res.json().catch(() => ({}))
+              if (res.ok && data.ok) {
+                form.reset()
+                setStatus('Vielen Dank — Ihre Nachricht ist angekommen. Wir melden uns schnellstmöglich.', 'ok')
+              } else {
+                setStatus('Es gab ein Problem. Bitte rufen Sie uns alternativ an: 04242 27429.', 'err')
+              }
+            } catch {
+              setStatus('Verbindung fehlgeschlagen. Bitte rufen Sie uns alternativ an: 04242 27429.', 'err')
+            } finally {
+              btn.disabled = false
+              btn.textContent = oldLabel
+            }
+          })
+        }
+      </script>
 
       <aside class="kontakt-info">
         <h3>Kanzlei Villach</h3>
@@ -115,6 +175,37 @@ import { company } from '../lib/content'
     color: var(--color-text-muted);
     margin-top: 1rem;
     line-height: 1.5;
+  }
+
+  /* Honeypot — vor Menschen versteckt, für Bots klickbar */
+  .hp {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .form-status {
+    margin: 1rem 0 0;
+    padding: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    min-height: 1.5em;
+  }
+  .form-status[data-kind="ok"] {
+    color: #1f7a4d;
+    font-weight: 500;
+  }
+  .form-status[data-kind="err"] {
+    color: #b3261e;
+    font-weight: 500;
+  }
+
+  button[data-submit][disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
 
   .kontakt-info {
