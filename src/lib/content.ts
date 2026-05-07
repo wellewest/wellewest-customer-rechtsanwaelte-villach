@@ -57,6 +57,7 @@ export type PracticeArea = {
   hero: string
   body: string[]
   closing: string
+  image: string
 }
 
 export const practiceAreas: PracticeArea[] = [
@@ -72,6 +73,7 @@ export const practiceAreas: PracticeArea[] = [
       'Wenn keine außergerichtliche Einigung möglich ist, vertreten wir Sie konsequent vor Gericht — mit der Erfahrung aus über zwei Jahrzehnten Anwaltspraxis.',
     ],
     closing: 'Lassen Sie sich nicht abspeisen. Sichern Sie Ihre Ansprüche.',
+    image: '/images/schadenersatz.jpg',
   },
   {
     slug: 'strafrecht',
@@ -86,6 +88,7 @@ export const practiceAreas: PracticeArea[] = [
       'Strafbare Handlungen gegen Leib und Leben oder gegen die sexuelle Integrität, Vermögensdelikte, Suchmitteldelikte etc. — eine erfolgreiche Strafverteidigung beginnt bereits im Ermittlungsverfahren.',
     ],
     closing: 'Rechtssicher durch schwierige Zeiten — wir verhelfen Ihnen zu Ihrem Recht.',
+    image: '/images/strafrecht.jpg',
   },
   {
     slug: 'erbrecht',
@@ -99,6 +102,7 @@ export const practiceAreas: PracticeArea[] = [
       'Wir prüfen Testamente und Erbverträge, errechnen Pflichtteile, führen Verlassenschaftsverfahren und wehren ungerechtfertigte Forderungen ab.',
     ],
     closing: 'Wir schützen Ihre Rechte — auch wenn es um hohe Werte geht.',
+    image: '/images/erbrecht.jpg',
   },
   {
     slug: 'baurecht',
@@ -113,6 +117,7 @@ export const practiceAreas: PracticeArea[] = [
       'Mit unserer Erfahrung und Expertise sorgen wir dafür, dass Ihr Projekt sicher und rechtlich abgesichert durchgeführt wird.',
     ],
     closing: 'Ihr Partner für rechtssichere Bauprojekte.',
+    image: '/images/baurecht.jpg',
   },
   {
     slug: 'hass-im-netz',
@@ -126,6 +131,7 @@ export const practiceAreas: PracticeArea[] = [
       'Wir kennen die Mechanismen sozialer Netzwerke, kennen die Verantwortlichen und wissen, wie man auch gegen anonyme Täter vorgeht.',
     ],
     closing: 'Lassen Sie sich nicht zum Opfer machen. Wir handeln.',
+    image: '/images/hass-im-netz.jpg',
   },
   {
     slug: 'vertragsrecht',
@@ -139,6 +145,7 @@ export const practiceAreas: PracticeArea[] = [
       'Bei bestehenden Verträgen prüfen wir auf Wirksamkeit, beraten zu Kündigungs- und Anpassungsmöglichkeiten und führen die Auseinandersetzung, wenn der Vertragspartner sich nicht an Vereinbarungen hält.',
     ],
     closing: 'Wir erstellen Verträge, die halten — vor und im Streit.',
+    image: '/images/business.jpg',
   },
   {
     slug: 'scheidungsrecht',
@@ -152,6 +159,7 @@ export const practiceAreas: PracticeArea[] = [
       'Wir beraten auch vor der Eheschließung zu Ehepakten und Vermögensregelungen. Klare Regelungen heute ersparen lange Auseinandersetzungen morgen.',
     ],
     closing: 'Diskret. Klar. An Ihrer Seite.',
+    image: '/images/scheidungsrecht.jpg',
   },
   {
     slug: 'gewaehrleistung',
@@ -165,6 +173,7 @@ export const practiceAreas: PracticeArea[] = [
       'Auch im B2B-Bereich beraten wir zu Gewährleistungsklauseln, Garantien und Schadenersatzansprüchen.',
     ],
     closing: 'Lassen Sie sich nicht abwimmeln. Wir setzen durch.',
+    image: '/images/gewaehrleistung.jpg',
   },
   {
     slug: 'btvg',
@@ -178,6 +187,7 @@ export const practiceAreas: PracticeArea[] = [
       'Bei Streitigkeiten zu Mängeln, Verzug oder Vertragsänderungen vertreten wir Ihre Interessen — egal ob als Käufer oder als Bauträger.',
     ],
     closing: 'Wir kennen das BTVG. Vertrauen Sie auf Erfahrung.',
+    image: '/images/business.jpg',
   },
   {
     slug: 'unternehmensrecht',
@@ -191,5 +201,6 @@ export const practiceAreas: PracticeArea[] = [
       'Wir beraten Sie bei Gründung, laufendem Geschäftsbetrieb, Umstrukturierungen, Anteilsübertragungen und Konflikten unter Gesellschaftern. Mit dem Blick fürs Detail und für die langfristigen Folgen.',
     ],
     closing: 'Lassen Sie sich beraten — bevor es teuer wird.',
+    image: '/images/business.jpg',
   },
 ]

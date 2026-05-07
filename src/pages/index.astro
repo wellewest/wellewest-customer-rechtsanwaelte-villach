@@ -6,6 +6,10 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
 <BaseLayout title="Ihr Rechtsanwalt in Villach" description="Wir kümmern uns um Ihr Recht. Reif und Partner Rechtsanwälte — Mag. Herbert Steinwandter und Team in Villach.">
 
   <section class="hero">
+    <div class="hero__bg">
+      <img src="/images/team-und-buero.jpg" alt="Reif und Partner Rechtsanwälte Team" loading="eager" fetchpriority="high" />
+      <div class="hero__overlay"></div>
+    </div>
     <div class="container hero__inner">
       <p class="eyebrow">Reif und Partner Rechtsanwälte · Villach</p>
       <h1 class="hero__title">Wir kümmern uns um Ihr Recht</h1>
@@ -36,9 +40,14 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
       <div class="service-grid">
         {practiceAreas.map((area) => (
           <a href={`/${area.slug}`} class="service-card">
-            <h3 class="service-card__title">{area.title}</h3>
-            <p class="service-card__text">{area.short}</p>
-            <span class="service-card__more">Mehr erfahren →</span>
+            <div class="service-card__image">
+              <img src={area.image} alt="" loading="lazy" />
+            </div>
+            <div class="service-card__body">
+              <h3 class="service-card__title">{area.title}</h3>
+              <p class="service-card__text">{area.short}</p>
+              <span class="service-card__more">Mehr erfahren →</span>
+            </div>
           </a>
         ))}
       </div>
@@ -55,6 +64,9 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
         {aboutHerbert.paragraphs.map((p) => <p>{p}</p>)}
       </div>
       <aside class="about__sidebar">
+        <div class="about__photo">
+          <img src="/images/herbert.jpg" alt="Mag. Herbert Steinwandter" loading="lazy" />
+        </div>
         <div class="contact-card">
           <h3>Sprechen Sie mit uns</h3>
           <p class="contact-card__addr">
@@ -78,22 +90,33 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
 
 <style>
   .hero {
-    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    background: #0e1f3d;
     color: #fff;
     padding: 8rem 0 7rem;
     position: relative;
     overflow: hidden;
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
   }
-  .hero::before {
-    content: '';
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .hero__overlay {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse at top right, rgba(176, 136, 56, 0.15), transparent 60%),
-      radial-gradient(ellipse at bottom left, rgba(255,255,255,0.04), transparent 60%);
-    pointer-events: none;
+      linear-gradient(125deg, rgba(14,31,61,0.92) 0%, rgba(14,31,61,0.78) 50%, rgba(26,58,111,0.55) 100%);
   }
-  .hero__inner { position: relative; max-width: 900px; }
+  .hero__inner { position: relative; z-index: 1; max-width: 900px; }
   .hero .eyebrow { color: var(--color-accent); }
   .hero__title {
     color: #fff;
@@ -151,13 +174,12 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
   .service-card {
     background: var(--color-card);
     border: 1px solid var(--color-divider);
-    padding: 2rem;
     text-decoration: none;
     color: var(--color-text);
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    overflow: hidden;
     position: relative;
   }
   .service-card::before {
@@ -168,12 +190,32 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
     height: 3px;
     background: var(--color-accent);
     transition: width 0.25s ease;
+    z-index: 2;
   }
   .service-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 16px 40px var(--color-card-shadow);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 48px var(--color-card-shadow);
   }
   .service-card:hover::before { width: 100%; }
+  .service-card__image {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--color-bg-alt);
+  }
+  .service-card__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .service-card:hover .service-card__image img { transform: scale(1.06); }
+  .service-card__body {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 0.5rem;
+  }
   .service-card__title {
     font-family: var(--font-serif);
     font-size: 1.4rem;
@@ -204,6 +246,22 @@ import { practiceAreas, motto, aboutHerbert, company } from '../lib/content'
   @media (max-width: 900px) {
     .about__inner { grid-template-columns: 1fr; }
   }
+  .about__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .about__photo {
+    overflow: hidden;
+    border-bottom: 3px solid var(--color-accent);
+  }
+  .about__photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .about__photo:hover img { transform: scale(1.03); }
   .lead {
     font-size: 1.18rem;
     color: var(--color-primary);

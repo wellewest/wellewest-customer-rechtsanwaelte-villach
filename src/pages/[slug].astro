@@ -15,7 +15,11 @@ const { area } = Astro.props
 <BaseLayout title={area.title} description={area.metaDescription}>
 
   <section class="page-hero">
-    <div class="container">
+    <div class="page-hero__bg">
+      <img src={area.image} alt="" loading="eager" fetchpriority="high" />
+      <div class="page-hero__overlay"></div>
+    </div>
+    <div class="container page-hero__inner">
       <p class="eyebrow">Rechtsgebiet</p>
       <h1>{area.title}</h1>
       <p class="page-hero__sub">{area.short}</p>
@@ -63,10 +67,31 @@ const { area } = Astro.props
 
 <style>
   .page-hero {
-    background: linear-gradient(135deg, #0e1f3d 0%, #1a3a6f 100%);
+    background: #0e1f3d;
     color: #fff;
     padding: 6rem 0 4.5rem;
+    position: relative;
+    overflow: hidden;
+    min-height: 50vh;
+    display: flex;
+    align-items: center;
   }
+  .page-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .page-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .page-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, rgba(14,31,61,0.92) 0%, rgba(14,31,61,0.75) 60%, rgba(14,31,61,0.45) 100%);
+  }
+  .page-hero__inner { position: relative; z-index: 1; }
   .page-hero .eyebrow { color: var(--color-accent); }
   .page-hero h1 {
     color: #fff;
@@ -74,7 +99,7 @@ const { area } = Astro.props
   }
   .page-hero__sub {
     font-size: 1.2rem;
-    color: #b8c5db;
+    color: #e6ecf5;
     max-width: 640px;
   }
 
